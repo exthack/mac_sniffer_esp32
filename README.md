@@ -169,8 +169,10 @@ Now let's move to the trickiest part of the code. Before that, we need to create
     String maclist[64][3]   //It means 64 rows and 3 columns 
     MAC | TTL | STATUS
 --- | --- | ---
-**4CBB583D8C85** | `60` | **Offline**
-An example of how we will be using it[^1]
+
+
+
+An example of how we will be using it
     int listcount = 0;
     String defaultTTL = "60";
 Make sure you define these outside functions.
@@ -282,9 +284,11 @@ You can also skip this function. Specifically, if the user is offline, it will s
 
 
 This code is self-explanatory so here `if(maclist[i][2] == "")maclist[i][2] = "0";` i am checking if maclist array 2nd column is empty then it should be replace by `maclist[i][2] = "0";` by 0 string value . 
+`
         int timehere = (maclist[i][2].toInt());
           timehere ++;
           maclist[i][2] = String(timehere);
+`
 So this is self-explanatory: as long as the 2nd column is not offline, then the  user is online. As discussed, whenever the user is online, we will be using a timer.
 
 
@@ -313,26 +317,26 @@ We need to build an array where we are going to store all our known people's det
 All of us know what an array is, as we discussed in this article, so I have created an array of `ClientMac[10][2]` so you can increase the rows depending upon your need. How many employees do you need to monitor? if 20 then you can change it to `ClientMac[20][2]`
 
 Now before finishing up we need to define some function to Set primary/secondary channel of ESP32.
-
-#define maxCh 13 //max Channel -> US = 11, EU = 13, Japan = 14
-int curChannel = 1;
-
+`
+    #define maxCh 13 //max Channel -> US = 11, EU = 13, Japan = 14
+    int curChannel = 1;
+`
 
 Now that we are done with programming stuff, we just need to run this program.
 
-void loop() {
-    if(curChannel > maxCh){ 
-      curChannel = 1;
+    void loop() {
+        if(curChannel > maxCh){ 
+        curChannel = 1;
+        }
+        esp_wifi_set_channel(curChannel, WIFI_SECOND_CHAN_NONE); //Set primary/secondary channel of ESP32.
+        delay(1000);
+        updatetime();
+        purge();
+        showpeople();
+        curChannel++;
+        
+        
     }
-    esp_wifi_set_channel(curChannel, WIFI_SECOND_CHAN_NONE); //Set primary/secondary channel of ESP32.
-    delay(1000);
-    updatetime();
-    purge();
-    showpeople();
-    curChannel++;
-    
-    
-}
 
 esp_wifi_set_channel:- Set primary/secondary channel of ESP32.
 WIFI_SECOND_CHAN_NONE :- the channel width is HT20
@@ -341,7 +345,7 @@ Now We Are Done with Our Code Let's run this and check if it is compiling or not
 
 
 
-//***************************************************************************************************************************//
+**************************************************************************************************************************
 
 We successfully coded our sniffer. Now we want to publish this to the web server, or you can view it on a serial monitor through a for loop. But the issue is that we can't create a web server on the same Here's the reason we created a sniffer that runs in wifi mode, which is `WIFI_MODE_NULL` which will prevent us from running a web server.
 
