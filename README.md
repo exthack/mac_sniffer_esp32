@@ -167,6 +167,10 @@ Even if you print the packet above, you will get the same output as on a Mac. Th
 Now let's move to the trickiest part of the code. Before that, we need to create a 2-dimensional array.
 
     String maclist[64][3]   //It means 64 rows and 3 columns 
+    MAC | TTL | STATUS
+--- | --- | ---
+**4CBB583D8C85** | `60` | **Offline**
+An example of how we will be using it[^1]
     int listcount = 0;
     String defaultTTL = "60";
 Make sure you define these outside functions.
