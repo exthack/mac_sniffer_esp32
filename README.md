@@ -264,21 +264,21 @@ And then we are reducing by 1  `ttl --` Now you will get to know why i used tha
 
 I hope this gets into your head. Let's move on to other things. We are only left with two functions. Bear with me, and we are done.
 
-void updatetime(){ // This updates the time the device has been online for
-  for(int i=0;i<=63;i++){
-    if(!(maclist[i][0] == "")){
-      if(maclist[i][2] == "")maclist[i][2] = "0";
-      if(!(maclist[i][2] == "OFFLINE")){
-          int timehere = (maclist[i][2].toInt());
-          timehere ++;
-          maclist[i][2] = String(timehere);
-      }
-      
-      //Serial.println(maclist[i][0] + " : " + maclist[i][2]);
-      
-    }
-  }
-}
+	void updatetime(){ // This updates the time the device has been online for
+	  for(int i=0;i<=63;i++){
+		if(!(maclist[i][0] == "")){
+		  if(maclist[i][2] == "")maclist[i][2] = "0";
+		  if(!(maclist[i][2] == "OFFLINE")){
+			  int timehere = (maclist[i][2].toInt());
+			  timehere ++;
+			  maclist[i][2] = String(timehere);
+		  }
+		  
+		  //Serial.println(maclist[i][0] + " : " + maclist[i][2]);
+		  
+		}
+	  }
+	}
 
 You can also skip this function. Specifically, if the user is offline, it will show that it is offline. If the user is online, it will show the timer how much he was online till.
 
