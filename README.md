@@ -11,14 +11,19 @@ This library is for the wifi driver, which will help us sniff around. Also, afte
 
 
 This library will help us wrap our data and send it over to the server. This library can be downloaded from Audrio's Manage Library section.
+```
     #include <Arduino_JSON.h>     
-
+```
 Now this is the last set of the library that we will include, and all the libraries are not available; you need to download them manually from Guthub.
 
 This library open the webserver 
+```
     #include <AsyncTCP.h> 
+```
 This library open the webserver 
+```
     #include <ESPAsyncWebServer.h>
+```
 
 SPIFFS will be responsible for handling requests and response.(HTTP PROTOCOL)
     #include "SPIFFS.h"
@@ -329,3 +334,28 @@ esp_wifi_set_channel:- Set primary/secondary channel of ESP32.
 WIFI_SECOND_CHAN_NONE :- the channel width is HT20
 
 Now We Are Done with Our Code Let's run this and check if it is compiling or not.
+
+
+
+//***************************************************************************************************************************//
+
+We successfully coded our sniffer. Now we want to publish this to the web server, or you can view it on a serial monitor through a for loop. But the issue is that we can't create a web server on the same Here's the reason we created a sniffer that runs in wifi mode, which is `WIFI_MODE_NULL` which will prevent us from running a web server.
+
+There is some resonable but partial doc on the Espressif pages: Espressif Wifi doc
+
+This doc explains some of the different wifi modes of the esp32 that can be found in WiFiType.h.
+
+    WIFI_MODE_NULL : The null mode or the WIFI_MODE_OFF which is the OFF mode
+    WIFI_MODE_STA : The Station mode, which is the standard client mode
+    WIFI_MODE_AP : The Access Point mode where clients can connect to the ESP32
+    WIFI_MODE_APSTA : The hybrid mode where the ESP connect to an AP as a client and recieve connections from client as an AP.
+    WIFI_MODE_MAX : The MAX mode has no explaination on what it is supposed to do. But it dose not seems to be implemented anyway.
+
+There are many methods we can use, but I will use the one I have. So currently, I have a 2 EPSP. So I will be using another esp32 to run a server. So Will using UART Communication. The concept of salve and master. 
+
+An electronic interaction in which one device acts as the controller (the master) and initiates the commands, and the other devices (the slaves) respond accordingly. See master-slave communications.
+
+
+
+
+
